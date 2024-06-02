@@ -13,7 +13,7 @@ namespace cylStd {
 		using Char = String::value_type;
 	private:
 		std::string allArgs; // 参数列表
-		std::unordered_map< String, std::vector< String > > argParser; // 参数映射
+		std::unordered_map< String, std::shared_ptr< std::vector< String > > > argParser; // 参数映射
 		ArgParser( ) { }
 	private: // 私有函数
 		/// <summary>
@@ -51,17 +51,17 @@ namespace cylStd {
 		/// 获取所有选项
 		/// </summary>
 		/// <returns>选项列表</returns>
-		std::vector< String > getKeys( ) const {
-			std::vector< String > result;
+		std::shared_ptr< std::vector< String > > getKeys( ) const {
+			std::shared_ptr< std::vector< String > > result = std::make_shared< std::vector< String > >( );
 			for( auto it = argParser.begin( ), en = argParser.begin( ); it != en; ++it )
-				result.emplace_back( it->first );
+				result->emplace_back( it->first );
 			return result;
 		}
 		/// <summary>
 		/// 获取映射列表
 		/// </summary>
 		/// <returns>映射列表</returns>
-		std::unordered_map< String, std::vector< String > > getPairs( ) const {
+		const std::unordered_map< String, std::shared_ptr< std::vector< String > > > getPairs( ) const {
 			return argParser;
 		}
 		/// <summary>
@@ -69,7 +69,7 @@ namespace cylStd {
 		/// </summary>
 		/// <param name="option_name">选项名称</param>
 		/// <returns>值列表，失败返回 空列表</returns>
-		std::vector< String > getOptionValues( const String &option_name );
+		const std::shared_ptr< std::vector< String > > getOptionValues( const String &option_name ) const;
 	};
 }
 

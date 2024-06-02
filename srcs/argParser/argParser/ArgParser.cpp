@@ -57,7 +57,7 @@ bool ArgParser::parser( ) {
 	size_t indexBuff = 0;
 	ArgParser::Char *dataBuff = new ArgParser::Char[ maxBuffLen ];
 	int type = 0; // 0 为 选项， 1 为参数
-	std::vector< String > values;
+	std::shared_ptr< std::vector< String > > values = std::make_shared< std::vector< String > >( );
 	String option;
 	for( ; index < maxLen; ++index ) {
 		currentChar = data[ index ];
@@ -69,7 +69,7 @@ bool ArgParser::parser( ) {
 				}
 			} else {
 				if( indexBuff ) {
-					values.emplace_back( String( dataBuff, indexBuff ) );
+					values->emplace_back( String( dataBuff, indexBuff ) );
 					indexBuff = 0;
 				}
 			}
@@ -84,11 +84,11 @@ bool ArgParser::parser( ) {
 		if( currentChar == '-' ) { // 选项
 			if( type == 1 ) {
 				if( indexBuff ) {
-					values.emplace_back( String( dataBuff, indexBuff ) );
+					values->emplace_back( String( dataBuff, indexBuff ) );
 					indexBuff = 0;
 				}
 				argParser.emplace( option, values );
-				values.clear( );
+				values = std::make_shared< std::vector< String > >( );
 			}
 			type = 0;
 			for( ++index; index < maxLen; ++index ) // 跳过所有 -
@@ -112,7 +112,7 @@ bool ArgParser::parser( ) {
 		dataBuff = appendChar( dataBuff, indexBuff, maxBuffLen, currentChar );
 	}
 	if( indexBuff ) {// 返回余热
-		values.emplace_back( String( dataBuff, indexBuff ) );
+		values->emplace_back( String( dataBuff, indexBuff ) );
 		indexBuff = 0;
 	}
 	argParser.emplace( option, values );
@@ -125,7 +125,7 @@ std::shared_ptr< ArgParser > ArgParser::parser( int argc, char *argv[ ] ) {
 	std::shared_ptr< ArgParser > result( new ArgParser );
 	for( int index = 1; index < argc; ++index )
 		result->allArgs.append( argv[ index ] ).append( " " );
-	result->argParser.emplace( "", std::vector< String >( { argv[ 0 ] } ) );
+	result->argParser.emplace( "", std::make_shared< std::vector< String > >( std::vector< String >{ argv[ 0 ] } ) );
 	if( result->parser( ) )
 		return result;
 	return nullptr;
@@ -144,7 +144,7 @@ std::shared_ptr< ArgParser > ArgParser::parser( const std::vector< String > &arg
 		if( !isspace( offsetPtr[ index ] ) )
 			break;
 	if( offsetPtr[ index ] != '-' )
-		result->argParser.emplace( "", std::vector< String >( { offsetPtr + index } ) ); // 存在 - ，表示第一个是选项
+		result->argParser.emplace( "", std::make_shared< std::vector< String > >( std::vector< String >( { offsetPtr + index } ) ) ); // 存在 - ，表示第一个是选项
 	else
 		result->allArgs = String( offsetPtr + index ) + " " + result->allArgs; // 不存在 -。 表示第一个是运行程序
 	if( result->parser( ) )
@@ -158,7 +158,7 @@ std::shared_ptr< ArgParser > ArgParser::parser( const String &argvs ) {
 		return result;
 	return nullptr;
 }
-std::vector< ArgParser::String > ArgParser::getOptionValues( const String &option_name ) {
+const std::shared_ptr< std::vector< ArgParser::String > > ArgParser::getOptionValues( const String &option_name ) const {
 	size_t buffSize = option_name.length( );
 	auto optionNameIterator = option_name.begin( ), optionNameEnd = option_name.end( );
 	for( ; optionNameIterator != optionNameEnd; ++optionNameIterator )
