@@ -14,7 +14,7 @@ file( GLOB_RECURSE SRC_LIST
 	"*.hpp"
 )
 
-include_directories( ${HtmlTools_include_dir} )
+include_directories( ${argParser_include_dir} )
 
 set( cmake_definitions_out "${CMAKE_CURRENT_LIST_DIR}/src/${cmake_auto_sub_dir_name}/macro/cmake_to_c_cpp_header_env.h" )
 
@@ -47,7 +47,7 @@ set( cmake_definitions_org "${cmake_definitions_tmp}/cmake_in/cmake_to_c_cpp_hea
 configure_file( "${cmake_definitions_org}" "${cmake_definitions_out}" )
 
 target_link_libraries( ${PROJECT_NAME}
-	HtmlTools
+	argParser
 )
 set_target_properties( ${PROJECT_NAME} PROPERTIES
 	WIN32_EXECUTABLE FALSE

@@ -35,9 +35,9 @@ m_set_env( "${Project_Run_bin}" "${Project_Install_bin}" )
 
 add_compile_options( /utf-8 )
 
-get_path_cmake_dir_path( out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/srcs/HtmlTools/ "CMakeLists.txt" )
+get_path_cmake_dir_path( out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/srcs/argParser/ "CMakeLists.txt" )
 
-get_path_cmake_dir_path( out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/srcs/testHtmlCpp/ "CMakeLists.txt" )
+get_path_cmake_dir_path( out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/srcs/argParserCpp/ "CMakeLists.txt" )
 
 foreach( out_dir ${out_path_list} )
 	STRING( REPLACE ${CMAKE_SOURCE_DIR}/ "./" out_path ${out_dir} )

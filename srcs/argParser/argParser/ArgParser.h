@@ -6,7 +6,7 @@
 #include "../namespace/cylStd.h"
 #include <vector>
 namespace cylStd {
-	class ArgParser {
+	class ARGPARSER_EXPORT ArgParser {
 		size_t argCount; // 参数个数
 		std::vector< std::string > argVar; // 参数列表
 		std::unordered_map< std::string, std::vector< std::string > > argParser;
@@ -25,31 +25,7 @@ namespace cylStd {
 		/// </summary>
 		/// <param name="option_name">选项名称</param>
 		/// <returns>值列表，失败返回 空列表</returns>
-		std::vector< std::string > getOptionValues( const std::string &option_name ) {
-			size_t buffSize = option_name.length( );
-			auto optionNameIterator = option_name.begin( ), optionNameEnd = option_name.end( );
-			for( ; optionNameIterator != optionNameEnd; ++optionNameIterator )
-				if( *optionNameIterator != '-' )
-					break;
-				else
-					--buffSize;
-
-			std::string::value_type *buff = new std::string::value_type[ buffSize + 1 ];
-			buffSize = 0;
-			for( ; optionNameIterator != optionNameEnd; ++optionNameIterator, ++buffSize )
-				buff[ buffSize ] = *optionNameIterator;
-			buff[ buffSize ] = 0;
-
-			auto iterator = argParser.begin( );
-			auto end = argParser.end( );
-			for( ; iterator != end; ++iterator )
-				if( iterator->first == buff ) {
-					delete[] buff;
-					return iterator->second;
-				}
-			delete[] buff;
-			return { };
-		}
+		std::vector< std::string > getOptionValues( const std::string &option_name );
 	};
 }
 

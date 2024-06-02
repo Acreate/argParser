@@ -1,16 +1,17 @@
 ﻿#include <algorithm>
 #include <iostream>
 #include <locale>
-#include "testThread.h"
-#include "testHtml.h"
-#include "pathTest.h"
+
+#include "argParser/ArgParser.h"
 int main( int argc, char *argv[ ] ) {
 	std::locale locale( "zh_CN.UTF8" );
 	std::locale::global( locale );
 	std::wcout.imbue( locale );
 	std::cout.imbue( locale );
-	testThread( locale );
-	testHtml( locale );
+
+	cylStd::ArgParser argParser( argc, argv );
+
+	auto optionValues = argParser.getOptionValues( "-l\t\n2" );
 	return 0;
 
 }
