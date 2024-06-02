@@ -12,9 +12,3 @@ _deps
 /.vs
 builder
 out
-
-
-*_macro.h
-*_env.h
-*_export.h
-
