@@ -184,6 +184,7 @@ const std::shared_ptr< std::vector< ArgParser::String > > ArgParser::getOptionVa
 			delete[] buff;
 			return iterator->second;
 		}
+
 	delete[] buff;
-	return { };
+	return nullptr;
 }
