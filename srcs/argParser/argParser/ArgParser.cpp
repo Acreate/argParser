@@ -159,6 +159,7 @@ std::shared_ptr< ArgParser > ArgParser::parser( const String &argvs ) {
 	return nullptr;
 }
 const std::shared_ptr< std::vector< ArgParser::String > > ArgParser::getOptionValues( const String &option_name ) const {
+
 	size_t buffSize = option_name.length( );
 	auto optionNameIterator = option_name.begin( ), optionNameEnd = option_name.end( );
 	for( ; optionNameIterator != optionNameEnd; ++optionNameIterator )
