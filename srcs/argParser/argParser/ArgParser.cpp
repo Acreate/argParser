@@ -188,3 +188,19 @@ const std::shared_ptr< std::vector< ArgParser::String > > ArgParser::getOptionVa
 	delete[] buff;
 	return nullptr;
 }
+ArgParser::String ArgParser::converOptionToString( const std::shared_ptr< std::vector< String > > &option ) {
+	ArgParser::String result;
+	if( !option )
+		return result;
+	auto iterator = option->begin( );
+	auto end = option->end( );
+	do {
+		result.append( *iterator );
+
+		++iterator;
+		if( iterator != end )
+			break;
+		result.append( " " );
+	} while( true );
+	return result;
+}

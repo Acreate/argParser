@@ -70,6 +70,8 @@ namespace cylStd {
 		/// <param name="option_name">选项名称</param>
 		/// <returns>值列表，失败返回 空列表</returns>
 		const std::shared_ptr< std::vector< String > > getOptionValues( const String &option_name ) const;
+	public: //- 静态
+		static String converOptionToString( const std::shared_ptr< std::vector< String > > &option );
 	};
 }
 
