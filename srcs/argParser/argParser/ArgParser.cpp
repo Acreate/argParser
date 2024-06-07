@@ -195,10 +195,11 @@ ArgParser::String ArgParser::converOptionToString( const std::shared_ptr< std::v
 	auto iterator = option->begin( );
 	auto end = option->end( );
 	do {
-		result.append( *iterator );
+		auto string = iterator.operator*( );
+		result.append( string );
 
 		++iterator;
-		if( iterator != end )
+		if( iterator == end )
 			break;
 		result.append( " " );
 	} while( true );
