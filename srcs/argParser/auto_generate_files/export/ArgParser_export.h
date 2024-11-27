@@ -33,6 +33,7 @@
 #  define ARGPARSER_DEPRECATED_NO_EXPORT ARGPARSER_NO_EXPORT ARGPARSER_DEPRECATED
 #endif
 
+/* NOLINTNEXTLINE(readability-avoid-unconditional-preprocessor-if) */
 #if 0 /* DEFINE_NO_DEPRECATED */
 #  ifndef ARGPARSER_NO_DEPRECATED
 #    define ARGPARSER_NO_DEPRECATED
