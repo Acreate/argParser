@@ -22,7 +22,7 @@ int main( int argc, char *argv[ ] ) {
 	auto end = map.end( );
 	for( ; it != end; ++it ) {
 		std::cout << u8"名称 : " << it->first << std::endl;
-		for( auto &key : it->second )
+		for( auto &key : *it->second )
 			std::cout << u8"\t值 : " << key << std::endl;
 	}
 	return 0;
